@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript">
+            const bridge = "rsvr.xyz";
+            let url;
+            const hasProtocol = input => input.indexOf("://") > 1;
+            const ssl = input => input.indexOf("https") > 1;
+            const handleSubmit = () => {
+                url = document.querySelector(`#address`).value;
+                if (!hasProtocol(url))
+                    url = `http://${url}`;
+                
+                if (ssl(url))
+                    url.replace("https","http");
+                
+                const _url = `${url}.${bridge}`;
+                window.open(_url, "_blanc");
+            };
+        </script>
+    </head>
+    <body>
+            <input type="text" id="address" />
+            <input type="button" id="resolve" value="resolve" onclick="handleSubmit()" />
+    </body>
+</html>
