@@ -6,8 +6,12 @@
             let url;
             const hasProtocol = input => input.indexOf("://") > 1;
             const ssl = input => input.indexOf("https") > 1;
+            const isEmpty = input => input === "" || input === " " || typeof input === 'undefined';
             const handleSubmit = () => {
                 url = document.querySelector(`#address`).value;
+                if (isEmpty(url))
+                    return;
+
                 if (!hasProtocol(url))
                     url = `http://${url}`;
                 
@@ -17,10 +21,14 @@
                 const _url = `${url}.${bridge}`;
                 window.open(_url, "_blanc");
             };
+            const handleKeypress = () => {
+                if (event.key === "Enter")
+                    handleSubmit();
+            };
         </script>
     </head>
     <body>
-            <input type="text" id="address" />
+            <input type="text" id="address" onkeypress="handleKeypress()"/>
             <input type="button" id="resolve" value="resolve" onclick="handleSubmit()" />
     </body>
 </html>
