@@ -7,11 +7,14 @@
             const hasProtocol = input => input.indexOf("://") > 1;
             const ssl = input => input.indexOf("https") > 1;
             const isEmpty = input => input === "" || input === " " || typeof input === 'undefined';
+            const normalized = input => input.replace(/[\!\@\#\$\%\^\&\*\(\)\:\/\<\>\?\+\=\[\]\{\}\`\~\;\"\']/gi,"").toLowerCase();
             const handleSubmit = () => {
                 url = document.querySelector(`#address`).value;
                 if (isEmpty(url))
                     return;
 
+                url = normalized(url)
+                
                 if (!hasProtocol(url))
                     url = `http://${url}`;
                 
